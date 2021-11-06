@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllTodos, deleteTodoAsync, markCompleteAsync } from '../../redux/todoSlice';
 import todoService from "../../service/todoService";
 import { Link } from "react-router-dom";
+import TodoComponent from './TodoComponent';
 
 const TodoList = () => {
 	const dispatch = useDispatch();
@@ -51,24 +52,25 @@ const TodoList = () => {
 	};
 
 	return (
-        <div>
+        <div className='container'>
             <Link to={{pathname : `/add`}}>Add Todo</Link>
             <ul className='list-group'>
            
            {todos.map((todo) => (
-               <div>
-                   <h1>{todo.name}</h1>
-                   <p>{todo.description}</p>
-                   <p>{todo.status}</p>
-                   <Link to={{pathname : `/edit/${todo.id}`}}>edit</Link>
-                   <button onClick={() => handleDeleteClick(todo.id)} className='btn btn-danger'>
-					    Delete
-				    </button>
-                    <button onClick={() => handleMarkDoneClick(todo)} className='btn btn-danger'>
-					    Mark done
-				    </button>
-                   <br></br>
-               </div>
+            //    <div>
+            //        <h1>{todo.name}</h1>
+            //        <p>{todo.description}</p>
+            //        <p>{todo.status}</p>
+            //        <Link to={{pathname : `/edit/${todo.id}`}}>edit</Link>
+            //        <button onClick={() => handleDeleteClick(todo.id)} className='btn btn-danger'>
+			// 		    Delete
+			// 	    </button>
+            //         <button onClick={() => handleMarkDoneClick(todo)} className='btn btn-danger'>
+			// 		    Mark done
+			// 	    </button>
+            //        <br></br>
+            //    </div>
+            <TodoComponent id={todo.id} name={todo.name} description={todo.description} status={todo.status} />
                
            ))}
        </ul>

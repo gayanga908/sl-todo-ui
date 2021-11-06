@@ -1,0 +1,21 @@
+.todo-container {
+    padding: 10px;
+}
+
+.action-column{
+    text-align: center;
+    border-left: 1px solid rgba(119, 119, 119, 0.274);
+}
+
+.edit-btn{
+    text-align: right;
+}
+
+.status-row p {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.done-delete-btn-row .btn {
+    width: 125px;
+}

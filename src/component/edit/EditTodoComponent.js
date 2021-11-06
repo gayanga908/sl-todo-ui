@@ -34,9 +34,10 @@ const EditTodo = ({ match }) => {
 	
     const dispatch = useDispatch();
 
-	const onSubmit = (event) => {
+	const onSubmit = async (event) => {
 		event.preventDefault();
 		if (name) {
+            await Promise.all([
 			dispatch(
 				updateTodoAsync({
                     id,
@@ -45,9 +46,11 @@ const EditTodo = ({ match }) => {
                     dueDate,
                     status: todo.status
 				})
-			);
+			)
+            ]);
 		}
         dispatch(getAllTodos());
+        navigate('/');
 	};
     
     const onInputchange = (event) =>{
