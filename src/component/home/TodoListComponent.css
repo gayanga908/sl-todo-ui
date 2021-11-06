@@ -1,0 +1,9 @@
+.home-header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(119, 119, 119, 0.274);
+  margin-bottom: 25px;
+}
+
+.add-btn-column{
+    text-align: right;
+}

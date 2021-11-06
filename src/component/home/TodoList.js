@@ -1,104 +1,38 @@
-import React, { useEffect, useState } from 'react';
-// import TodoItem from './TodoItem';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllTodos, deleteTodoAsync, markCompleteAsync } from '../../redux/todoSlice';
-import todoService from "../../service/todoService";
-import { Link } from "react-router-dom";
+import { getAllTodos } from '../../redux/todoSlice';
 import TodoComponent from './TodoComponent';
+import {useNavigate} from 'react-router-dom';
+import "./TodoListComponent.css"
 
 const TodoList = () => {
 	const dispatch = useDispatch();
 	const todos = useSelector((state) => state.todos);
-    // const todo = useSelector((state) => state.todo);
-
-    const [value, setValue] = useState('');
-
-    const onSubmit = async (event) => {
-		event.preventDefault();
-		if (value) {
-			await todoService.saveTodo(value);
-		}
-
-        dispatch(getAllTodos());
-	};
+    const navigate = useNavigate();
+    const handleAddClick = () => navigate(`/add`);
 
 	useEffect(() => {
 		dispatch(getAllTodos());
 	}, [dispatch]);
 
-    // useEffect(() => {
-	// 	dispatch(getTodo({ id : "3"}));
-	// }, [dispatch]);
-
-    const handleDeleteClick = (id) => {
-		dispatch(deleteTodoAsync({ id }));
-	};
-
-    const handleMarkDoneClick = async (todo) => {
-        await Promise.all([
-            dispatch(markCompleteAsync(
-                {   
-                    id: todo.id,
-                    name: todo.name,
-                    description: todo.description,
-                    dueDate: todo.dueDate,
-                    status: "Done" 
-                    }
-                    ))
-        ]);
-		
-
-                dispatch(getAllTodos());
-	};
-
 	return (
         <div className='container'>
-            <Link to={{pathname : `/add`}}>Add Todo</Link>
-            <ul className='list-group'>
-           
+            <div className='row home-header'>
+                <div className='col-md-10'>
+                    <h1>Todo assignment</h1>
+                </div>
+                <div className='col-md-2 add-btn-column'>
+                    <button type="button" class="btn btn-primary"  onClick={() => handleAddClick() }>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
            {todos.map((todo) => (
-            //    <div>
-            //        <h1>{todo.name}</h1>
-            //        <p>{todo.description}</p>
-            //        <p>{todo.status}</p>
-            //        <Link to={{pathname : `/edit/${todo.id}`}}>edit</Link>
-            //        <button onClick={() => handleDeleteClick(todo.id)} className='btn btn-danger'>
-			// 		    Delete
-			// 	    </button>
-            //         <button onClick={() => handleMarkDoneClick(todo)} className='btn btn-danger'>
-			// 		    Mark done
-			// 	    </button>
-            //        <br></br>
-            //    </div>
-            <TodoComponent id={todo.id} name={todo.name} description={todo.description} status={todo.status} />
-               
+                <TodoComponent id={todo.id} name={todo.name} description={todo.description} status={todo.status} />    
            ))}
-       </ul>
-
-       <div>
-        <form onSubmit={onSubmit} className='form-inline mt-3 mb-3'>
-                <label className='sr-only'>Name</label>
-                <input
-                    type='text'
-                    className='form-control mb-2 mr-sm-2'
-                    placeholder='Add todo...'
-                    value={value}
-                    onChange={(event) => setValue(event.target.value)}
-                ></input>
-
-                <button type='submit' className='btn btn-primary mb-2'>
-                    Submit
-                </button>
-            </form>
-       </div>
-
-                {/* <div>
-                    get one todo
-                   <h1>{todo.name}</h1>
-                   <p>{todo.description}</p>
-                   <p>{todo.status}</p>
-                   <br></br>
-               </div> */}
         </div>
 		
 	);

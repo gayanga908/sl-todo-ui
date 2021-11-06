@@ -52,12 +52,6 @@ const EditTodo = ({ match }) => {
         dispatch(getAllTodos());
         navigate('/');
 	};
-    
-    const onInputchange = (event) =>{
-        this.todoNew({
-          [event.target.name]: event.target.value
-        });
-      }
 
     return (
         <div>
