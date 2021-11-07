@@ -95,6 +95,7 @@ export const deleteTodoAsync = createAsyncThunk(
 	}
 );
 
+
 export const todoSlice = createSlice({
 	name: 'todos',
 	initialState: [],
@@ -131,7 +132,10 @@ export const todoSlice = createSlice({
 			return action.payload.todos;
 		},
 		[addTodoAsync.fulfilled]: (state, action) => {
-			state.push(action.payload.todo);
+            if(action.payload != null && action.payload !== undefined) {
+                state.push(action.payload.todo);
+            }
+			
 		},
 		[markCompleteAsync.fulfilled]: (state, action) => {
 			const index = state.findIndex(

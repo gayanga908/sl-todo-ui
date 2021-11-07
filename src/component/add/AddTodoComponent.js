@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { addTodoAsync, getAllTodos } from "../../redux/todoSlice";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
+import { useAlert } from 'react-alert'
 import "react-datepicker/dist/react-datepicker.css";
 
 const AddTodoComponent = () => {
@@ -13,20 +14,30 @@ const AddTodoComponent = () => {
   let navigate = useNavigate();
   const handleBackButtonClick = () => navigate(`/`);
   const dispatch = useDispatch();
+  const alert = useAlert()
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    await Promise.all([
-      dispatch(
-        addTodoAsync({
-          name,
-          description,
-          dueDate,
-        })
-      ),
-    ]);
-    dispatch(getAllTodos());
-    navigate("/");
+    if (name == null || name === ""){
+        alert.error('Name cannot be empty!')
+    } else if (description !== "" && description.length > 500) {
+        alert.error('Description cannot have more than 500 charactors')
+    } else {
+        await Promise.all([
+            dispatch(
+              addTodoAsync({
+                name,
+                description,
+                dueDate,
+              })
+            ),
+            alert.success('Todo saved')
+          ]);
+          
+          dispatch(getAllTodos());
+          navigate("/");
+    }
+    
   };
 
   return (
@@ -62,6 +73,7 @@ const AddTodoComponent = () => {
                 <DatePicker
                   selected={dueDate}
                   onChange={(date) => setDueDate(date)}
+                  minDate={new Date()}
                 />
 
                 <div className="row todo-button-row">
