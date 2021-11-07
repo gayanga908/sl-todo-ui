@@ -1,0 +1,22 @@
+.view-component .card-body {
+   padding: 50px;
+}
+
+.todo-name-row{
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.todo-button-row{
+    margin-top: 25px !important;
+    text-align: center;
+}
+
+.todo-button-row button{
+    width: 165px;
+}
+
+.todo-dueDate-staus-row{
+    margin-top: 25px !important;
+    font-size: 25px;
+}

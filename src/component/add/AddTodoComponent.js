@@ -1,37 +1,27 @@
-/* eslint-disable eqeqeq */
 import React, { useState } from "react";
-import { useParams } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addTodoAsync, getAllTodos } from "../../redux/todoSlice";
 import { useNavigate } from "react-router-dom";
-import { updateTodoAsync, getAllTodos } from "../../redux/todoSlice";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const EditTodo = () => {
-  const { id } = useParams();
-  const todo = useSelector((state) =>
-    state.todos.find((todo) => todo.id == id)
-  );
-
-  const [name, setName] = useState(todo.name);
-  const [description, setDescription] = useState(todo.description);
-  const [dueDate, setDueDate] = useState(new Date(todo.dueDate));
+const AddTodoComponent = () => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [dueDate, setDueDate] = useState(new Date());
 
   let navigate = useNavigate();
   const handleBackButtonClick = () => navigate(`/`);
-
   const dispatch = useDispatch();
 
   const onSubmit = async (event) => {
     event.preventDefault();
     await Promise.all([
       dispatch(
-        updateTodoAsync({
-          id,
+        addTodoAsync({
           name,
           description,
-          dueDate: dueDate,
-          status: todo.status,
+          dueDate,
         })
       ),
     ]);
@@ -45,28 +35,26 @@ const EditTodo = () => {
         <div class="card">
           <div class="card-body">
             <div className="row todo-name-row">
-              <h1 class="card-title">Edit - {todo.name}</h1>
+              <h1 class="card-title">Add Todo</h1>
             </div>
 
             <div className="todo-form">
               <form onSubmit={onSubmit} className="form-inline mt-3 mb-3">
-                <label className="sr-only">Name</label>
+                <label className="sr-only">Title</label>
                 <input
-                  name="name"
                   type="text"
                   className="form-control mb-2 mr-sm-2"
                   placeholder="Todo name"
-                  defaultValue={todo.name}
+                  value={name}
                   onChange={(event) => setName(event.target.value)}
                 ></input>
 
                 <label className="sr-only">Description</label>
                 <textarea
-                  name="description"
                   type="text"
                   className="form-control mb-2 mr-sm-2"
                   placeholder="Todo description"
-                  defaultValue={todo.description}
+                  value={description}
                   onChange={(event) => setDescription(event.target.value)}
                 ></textarea>
 
@@ -86,11 +74,8 @@ const EditTodo = () => {
                     </button>
                   </div>
                   <div className="col-md-6">
-                    <button
-                      type="submit"
-                      className="btn btn-primary mb-2 edit-submit-button"
-                    >
-                      Update
+                    <button type="submit" className="btn btn-primary mb-2">
+                      Save
                     </button>
                   </div>
                 </div>
@@ -103,4 +88,4 @@ const EditTodo = () => {
   );
 };
 
-export default EditTodo;
+export default AddTodoComponent;

@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { nanoid } from 'nanoid';
 
 export const getAllTodos = createAsyncThunk(
 	'todos/getAllTodos',
@@ -11,17 +10,6 @@ export const getAllTodos = createAsyncThunk(
 		}
 	}
 );
-
-// export const getTodo = createAsyncThunk(
-// 	'todos/getTodo',
-// 	async (payload) => {
-// 		const resp = await fetch(`http://localhost:8080/api/todos/${payload.id}`);
-// 		if (resp.ok) {
-// 			const todo = await resp.json();
-// 			return { todo };
-// 		}
-// 	}
-// );
 
 export const addTodoAsync = createAsyncThunk(
 	'todos/addTodoAsync',
@@ -36,7 +24,7 @@ export const addTodoAsync = createAsyncThunk(
                     name: payload.name,
                     description: payload.description,
                     dueDate: payload.dueDate,
-                    status: "pending"
+                    status: "Pending"
                 }),
 		});
 
@@ -113,9 +101,10 @@ export const todoSlice = createSlice({
 	reducers: {
 		addTodo: (state, action) => {
 			const todo = {
-				id: nanoid(),
-				title: action.payload.title,
-				completed: false,
+                name: action.payload.name,
+                description: action.payload.description,
+                dueDate: action.payload.dueDate,
+                status: "Pending",
 			};
 			state.push(todo);
 		},
@@ -141,9 +130,6 @@ export const todoSlice = createSlice({
 		[getAllTodos.fulfilled]: (state, action) => {
 			return action.payload.todos;
 		},
-        // [getTodo.fulfilled]: (state, action) => {
-		// 	return action.payload.todo;
-		// },
 		[addTodoAsync.fulfilled]: (state, action) => {
 			state.push(action.payload.todo);
 		},

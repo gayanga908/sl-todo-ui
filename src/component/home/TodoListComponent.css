@@ -7,3 +7,13 @@
 .add-btn-column{
     text-align: right;
 }
+
+.pending-todo-container, .completed-todo-container{
+    padding: 10px 20px;
+    margin-bottom: 25px;
+}
+
+.completed-todo-container .todo-container{
+    opacity: 0.5;
+    text-decoration: line-through;
+}
