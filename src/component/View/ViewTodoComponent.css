@@ -19,4 +19,6 @@
 .todo-dueDate-staus-row{
     margin-top: 25px !important;
     font-size: 25px;
+    font-weight: 600;
+    font-family: monospace;
 }

@@ -12,7 +12,6 @@ const TodoList = () => {
     const completedTodos = useSelector((state) => state.todos.filter(todo => todo.status == "Done"));
     const navigate = useNavigate();
     const handleAddClick = () => navigate(`/add`);
-    console.log(completedTodos);
 
 	useEffect(() => {
 		dispatch(getAllTodos());
@@ -39,7 +38,7 @@ const TodoList = () => {
                     <h2> Pending Todos </h2>
                 </div>
                 {pendingTodos.map((todo) => (
-                    <TodoComponent id={todo.id} name={todo.name} description={todo.description} status={todo.status} dueDate={todo.dueDate} />    
+                    <TodoComponent key={todo.id} id={todo.id} name={todo.name} description={todo.description} status={todo.status} dueDate={todo.dueDate} />    
                 ))}
             </div>
 
@@ -49,7 +48,7 @@ const TodoList = () => {
                     
                 </div>
                 {completedTodos.map((todo) => (
-                    <TodoComponent id={todo.id} name={todo.name} description={todo.description} status={todo.status} dueDate={todo.dueDate} />    
+                    <TodoComponent key={todo.id} id={todo.id} name={todo.name} description={todo.description} status={todo.status} dueDate={todo.dueDate} />    
                 ))}
             </div>
            

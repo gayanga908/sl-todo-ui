@@ -51,10 +51,10 @@ const EditTodo = () => {
   return (
     <div>
       <div className="container view-component">
-        <div class="card">
-          <div class="card-body">
+        <div className="card">
+          <div className="card-body">
             <div className="row todo-name-row">
-              <h1 class="card-title">Edit - {todo.name}</h1>
+              <h1 className="card-title">Edit - {todo.name}</h1>
             </div>
 
             <div className="todo-form">

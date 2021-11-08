@@ -51,7 +51,7 @@ const AddTodoComponent = () => {
 
             <div className="todo-form">
               <form onSubmit={onSubmit} className="form-inline mt-3 mb-3">
-                <label className="sr-only">Title</label>
+                <label className="sr-only">Name</label>
                 <input
                   type="text"
                   className="form-control mb-2 mr-sm-2"
