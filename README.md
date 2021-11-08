@@ -1,4 +1,5 @@
 This is a UI client of a simple todo application an is created as an assignment for SL technical interview.
+
 Created by Tharindu Gayanga
 
 In the project directory, you can run:
